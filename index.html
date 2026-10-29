@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101020">
+<title>Smartly AI — Create Smarter</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#0c0d18;color:#f7f7ff}
+header{padding:22px 7%;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #292a40}
+.logo{font-size:24px;font-weight:800;color:#a995ff}
+nav a{color:#ddd;text-decoration:none;margin-left:18px;font-size:14px}
+.hero{text-align:center;padding:75px 20px 40px}
+.tag{color:#b4a2ff;background:#201c3a;padding:9px 14px;border-radius:30px;font-size:13px}
+h1{font-size:clamp(38px,8vw,66px);margin:28px 0 14px;letter-spacing:-2px}
+h1 span{color:#a995ff}
+.hero p{color:#b8b8cb;line-height:1.7;max-width:550px;margin:0 auto 28px}
+main{max-width:850px;margin:auto;padding:20px}
+.panel{background:#151625;border:1px solid #303149;border-radius:20px;padding:24px;margin:18px 0}
+h2{font-size:22px;margin-top:0}
+label{display:block;margin:18px 0 8px;color:#ddd;font-size:14px}
+input,select,textarea{width:100%;padding:14px;border:1px solid #393a52;border-radius:10px;background:#0e1020;color:white;font-size:16px}
+button{background:#8b72ff;color:white;font-weight:bold;border:0;padding:14px 20px;border-radius:10px;font-size:15px;cursor:pointer}
+button:hover{background:#7255f0}
+.full{width:100%;margin-top:18px}
+.result{white-space:pre-wrap;line-height:1.7;color:#e1defb}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px}
+.card{background:#171827;border:1px solid #303149;padding:20px;border-radius:15px}
+.card p{color:#b8b8cb;font-size:14px;line-height:1.6}
+footer{text-align:center;color:#89899e;padding:35px 15px;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">✦ Smartly AI</div>
+  <nav><a href="#tools">Tools</a><a href="#about">About</a></nav>
+</header>
+<section class="hero">
+  <span class="tag">✦ YOUR CREATIVE WORKSPACE</span>
+  <h1>Create smarter<br>with <span>Smartly AI.</span></h1>
+  <p>Simple creative tools to help turn your ideas into scripts, content and inspiration.</p>
+  <a href="#tools"><button>Explore Free Tools ↓</button></a>
+</section>
+<main id="tools">
+  <div class="panel">
+    <h2>🎬 Shorts Script Generator</h2>
+    <p style="color:#b8b8cb">Create a starter script for your next video.</p>
+    <label for="topic">What is your video about?</label>
+    <input id="topic" placeholder="e.g. 5 surprising facts about space">
+    <label for="style">Choose a style</label>
+    <select id="style">
+      <option value="curious">Curious & engaging</option>
+      <option value="funny">Funny</option>
+      <option value="motivational">Motivational</option>
+      <option value="mystery">Mysterious</option>
+    </select>
+    <button class="full" onclick="generate()">Generate My Script</button>
+    <div id="output" class="result" style="display:none;margin-top:24px"></div>
+    <button id="copy" style="display:none;margin-top:12px" onclick="copyText()">Copy Script</button>
+  </div>
+  <h2>Explore Smartly AI</h2>
+  <div class="grid">
+    <div class="card"><h3>✍️ AI Writing</h3><p>Get started with ideas for scripts, captions and posts.</p></div>
+    <div class="card"><h3>🖼️ Image Ideas</h3><p>Plan creative prompts for your next visual project.</p></div>
+    <div class="card"><h3>🎥 Video Ideas</h3><p>Discover concepts for engaging short videos.</p></div>
+  </div>
+  <div class="panel" id="about">
+    <h2>About Smartly AI</h2>
+    <p style="color:#b8b8cb;line-height:1.7">Smartly AI is an independent creative-tools project designed to help creators get started faster.</p>
+    <p style="color:#b8b8cb;font-size:13px">This demo uses built-in templates. It does not connect to an AI model.</p>
+  </div>
+</main>
+<footer>© 2026 Smartly AI · Built for curious creators</footer>
+<script>
+function generate(){
+ const topic=document.getElementById('topic').value.trim();
+ const style=document.getElementById('style').value;
+ if(!topic){alert('Please enter a video topic first.');return;}
+ const hooks={
+ curious:'Did you know something surprising about '+topic+'? Stay until the end!',
+ funny:'You thought you knew '+topic+'? Well, this might change your mind!',
+ motivational:'Every great discovery starts with curiosity. Today, let us explore '+topic+'.',
+ mystery:'There is something fascinating about '+topic+' that deserves a closer look...'
+ };
+ const outro='If you enjoyed this video, follow for more interesting content!';
+ const script='HOOK\\n'+hooks[style]+'\\n\\nMAIN CONTENT\\nIntroduce '+topic+' in a clear, engaging way. Add three accurate facts or useful points, with a short explanation for each. Verify your facts before publishing.\\n\\nENDING\\n'+outro;
+ document.getElementById('output').textContent=script;
+ document.getElementById('output').style.display='block';
+ document.getElementById('copy').style.display='inline-block';
+}
+function copyText(){
+ const text=document.getElementById('output').textContent;
+ if(navigator.clipboard){
+  navigator.clipboard.writeText(text).then(()=>alert('Script copied!')).catch(()=>alert('Please select and copy the script manually.'));
+ }else{alert('Please select and copy the script manually.');}
+}
+</script>
+</body>
+</html>
